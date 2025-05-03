@@ -7,13 +7,13 @@ from aiogram.types import Message, KeyboardButton, ReplyKeyboardMarkup
 # Токен бота
 from Config import TOKEN
 
-# Точки экскурсии
+# Точки экскурсии (пока только одна)
 
 
 # Тексты для кнопок
 
     #Музей Пикассо
-from app.step8 import txt1 as txt1
+from app.step8 import txt1 as button8_Picasso
 
 
 
@@ -58,7 +58,7 @@ async def start_handler(message: Message):
 @dp.message()
 async def button_handler(message: Message):
     if message.text == "Музей Пикассо":
-        await message.answer(txt1, parse_mode="Markdown")
+        await message.answer(button8_Picasso, parse_mode="Markdown")
     elif message.text == "Button2":
         await message.answer(txt2, parse_mode="Markdown")
     elif message.text == "Button3":
