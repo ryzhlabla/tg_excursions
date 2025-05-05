@@ -2,6 +2,7 @@ import asyncio
 from aiogram import Bot, Dispatcher, types
 from aiogram.filters import Command
 from aiogram.types import Message, KeyboardButton, ReplyKeyboardMarkup
+from aiogram.types import FSInputFile
 
 
 # Токен бота
@@ -11,13 +12,16 @@ from Config import TOKEN
 
 
 # Тексты для кнопок
-
+    #Вступление
+from app.step1_intro.step1 import txt1 as button1_Intro
     #Музей Пикассо
-from app.step8 import txt1 as button8_Picasso
+from app.step8_Picasso.step8 import txt1 as button8_Picasso
 
 
 
-
+# Файлы с аудиотекстами
+    #Вступление
+audio_step1 = FSInputFile("app/step1_intro/step1.mp3")  # <-- путь к файлу
 
 
 
@@ -32,6 +36,7 @@ txt6 = "Это текст для Button6"
 keyboard = ReplyKeyboardMarkup(
     keyboard=[
         [
+            KeyboardButton(text="Вступление"),
             KeyboardButton(text="Музей Пикассо"),
             KeyboardButton(text="Button2"),
             KeyboardButton(text="Button3"),
@@ -57,10 +62,14 @@ async def start_handler(message: Message):
 # Хэндлер на нажатие кнопок
 @dp.message()
 async def button_handler(message: Message):
-    if message.text == "Музей Пикассо":
+    if message.text == "Вступление":
+        await message.answer_voice(voice=audio_step1, caption="Аудиоверсия")  # <-- ОБЯЗАТЕЛЬНО указать voice=
+        # Делаем паузу 1 секунда
+        await asyncio.sleep(1)
+        await message.answer(button1_Intro, parse_mode="Markdown")
+        
+    elif message.text == "Музей Пикассо":
         await message.answer(button8_Picasso, parse_mode="Markdown")
-    elif message.text == "Button2":
-        await message.answer(txt2, parse_mode="Markdown")
     elif message.text == "Button3":
         await message.answer(txt3)
     elif message.text == "Button4":
@@ -77,4 +86,7 @@ async def main():
     await dp.start_polling(bot)
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    try:
+        asyncio.run(main())
+    except KeyboardInterrupt:
+        print("Bot остановлен!")
