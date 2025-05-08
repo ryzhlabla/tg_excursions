@@ -1,6 +1,8 @@
 from aiogram.types import KeyboardButton, ReplyKeyboardMarkup
+from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from buttons import EXCURSION_BUTTONS   
 
+# Основное меню
 main_menu = ReplyKeyboardMarkup(
     keyboard=[
         [KeyboardButton(text=EXCURSION_BUTTONS[0])],
@@ -12,23 +14,32 @@ main_menu = ReplyKeyboardMarkup(
 
 
 # Меню экскурсии 1 часть
-excursion_menu1 = ReplyKeyboardMarkup(
-    keyboard=[
+excursion_menu1  = InlineKeyboardMarkup(
+    inline_keyboard=[
         [
-            KeyboardButton(text=EXCURSION_BUTTONS[1]),     # 1. Вступление
-            KeyboardButton(text=EXCURSION_BUTTONS[2]),     # 2. Музей Пикассо
-            KeyboardButton(text=EXCURSION_BUTTONS[3]),     # 3. Button3
-            KeyboardButton(text=EXCURSION_BUTTONS[4]),     # 4. Button4
+            InlineKeyboardButton(text=EXCURSION_BUTTONS[1], callback_data="intro"),         # 1. Вступление
+            InlineKeyboardButton(text=EXCURSION_BUTTONS[2], callback_data="SchlossM")     #"2. Замок Мюнстера",
         ],
+        [ 
+            InlineKeyboardButton(text=EXCURSION_BUTTONS[3], callback_data="Prinzipal") ,    #"3. Главная площадь"
+            InlineKeyboardButton(text=EXCURSION_BUTTONS[4], callback_data="Stein")       # "4. Камни"
+        ],
+        # [    
+        #     
+        #     InlineKeyboardButton(text=EXCURSION_BUTTONS[5], callback_data="Rathaus"),       #"5. Ратуша"
+        #     InlineKeyboardButton(text=EXCURSION_BUTTONS[5], callback_data="Rathaus"),       #"5. Ратуша"
+        # ],
         [
-            KeyboardButton(text=EXCURSION_BUTTONS[5]),     # 5. Button5
-            KeyboardButton(text=EXCURSION_BUTTONS[7]),     # 7. Далее.. (Конпки с 6 по 10)
-            KeyboardButton(text=EXCURSION_BUTTONS[12]),    # 12. Назад.. (Возврат в меню)
-            KeyboardButton(text=EXCURSION_BUTTONS[9])      # 9. Карта
-        ],
-    ],
-    resize_keyboard=True
+            InlineKeyboardButton(text=EXCURSION_BUTTONS[5], callback_data="Rathaus"),       #"5. Ратуша"
+            InlineKeyboardButton(text=EXCURSION_BUTTONS[7], callback_data="Weiter"),        # 7. Далее.. (Конпки с 6 по 10)
+          #  InlineKeyboardButton(text=EXCURSION_BUTTONS[12], callback_data="Zuruck"),       # 12. Назад.. (Возврат в меню)
+           # InlineKeyboardButton(text=EXCURSION_BUTTONS[9], callback_data="Plan")           # 9. Карта
+        ]
+    ]
 )
+
+
+
 
 # Меню экскурсии 2 часть
 excursion_menu2 = ReplyKeyboardMarkup(
