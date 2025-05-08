@@ -18,12 +18,6 @@ async def start(message: Message):
 # Обработчики нажатий кнопок меню
 
 
-@router.message(lambda msg: msg.text == "Открыть карту маршрута в google")
-async def menu_map(message: Message):
-    await message.answer(
-        'Вот [ссылка на карту маршрута](https://www.google.com/maps/d/edit?mid=1LzsQNhwI7wxI9ZatG7Ohu-dyYlFOn-Q&usp=sharing)',
-        parse_mode="Markdown"
-    )
 
 
 @router.message(lambda msg: msg.text not in EXCURSION_BUTTONS)
