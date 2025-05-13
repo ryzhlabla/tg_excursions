@@ -24,11 +24,6 @@ excursion_menu1  = InlineKeyboardMarkup(
             InlineKeyboardButton(text=EXCURSION_BUTTONS[3], callback_data="Prinzipal") ,    #"3. Главная площадь"
             InlineKeyboardButton(text=EXCURSION_BUTTONS[4], callback_data="Stein")       # "4. Камни"
         ],
-        # [    
-        #     
-        #     InlineKeyboardButton(text=EXCURSION_BUTTONS[5], callback_data="Rathaus"),       #"5. Ратуша"
-        #     InlineKeyboardButton(text=EXCURSION_BUTTONS[5], callback_data="Rathaus"),       #"5. Ратуша"
-        # ],
         [
             InlineKeyboardButton(text=EXCURSION_BUTTONS[5], callback_data="Rathaus"),       #"5. Ратуша"
             InlineKeyboardButton(text=EXCURSION_BUTTONS[7], callback_data="Weiter"),        # 7. Далее.. (Конпки с 6 по 10)
@@ -41,40 +36,43 @@ excursion_menu1  = InlineKeyboardMarkup(
 
 
 
-# Меню экскурсии 2 часть
-excursion_menu2 = ReplyKeyboardMarkup(
-    keyboard=[
+# Меню экскурсии 2 часть на инлайнах
+
+excursion_menu2  = InlineKeyboardMarkup(
+    inline_keyboard=[
         [
-            KeyboardButton(text=EXCURSION_BUTTONS[6]),     # "6. Городской музей"
-            KeyboardButton(text=EXCURSION_BUTTONS[13]),     # "7. Городской дворец"
-            KeyboardButton(text=EXCURSION_BUTTONS[14]),     # "8. Новая площадь" 
-            KeyboardButton(text=EXCURSION_BUTTONS[15]),     # "9. Музей Пикассо"
+            InlineKeyboardButton(text=EXCURSION_BUTTONS[6], callback_data="StadtMuseum"),        # "6. Городской музей"
+            InlineKeyboardButton(text=EXCURSION_BUTTONS[13], callback_data="StadtSchloss")     #"7. Городской дворец"
+        ],
+        [ 
+            InlineKeyboardButton(text=EXCURSION_BUTTONS[14], callback_data="Neueplatz") ,    #"8. Новая площадь" 
+            InlineKeyboardButton(text=EXCURSION_BUTTONS[15], callback_data="Picasso")       # "9. Музей Пикассо"
         ],
         [
-            KeyboardButton(text=EXCURSION_BUTTONS[16]),     # "10. Церковь Св. Павла"
-            KeyboardButton(text=EXCURSION_BUTTONS[20]),     # 20. Далее...
-            KeyboardButton(text=EXCURSION_BUTTONS[21]),    # 21. Назад (к кнопкам 1-5)
-            KeyboardButton(text=EXCURSION_BUTTONS[9])      # 9. Карта
-        ],
-    ],
-    resize_keyboard=True
+            InlineKeyboardButton(text=EXCURSION_BUTTONS[21], callback_data="Zuruck2"),       # 21. Назад (к кнопкам 1-5)
+            InlineKeyboardButton(text=EXCURSION_BUTTONS[20], callback_data="Weiter2"),        # 20. Далее... (Конпки с 10 по 12)
+           
+        ]
+    ]
 )
 
-# Меню экскурсии 3 часть
-excursion_menu3 = ReplyKeyboardMarkup(
-    keyboard=[
+# Меню экскурсии 3 часть на инлайнах
+
+excursion_menu3  = InlineKeyboardMarkup(
+    inline_keyboard=[
         [
-            KeyboardButton(text=EXCURSION_BUTTONS[17]),     # "11. Озеро Аазее"
-            KeyboardButton(text=EXCURSION_BUTTONS[18]),     # "12. Порт"
-            KeyboardButton(text=EXCURSION_BUTTONS[19]),     # "13. Заключение" 
-            KeyboardButton(text=EXCURSION_BUTTONS[22]),     # "Назад...."
+            InlineKeyboardButton(text=EXCURSION_BUTTONS[16], callback_data="StPaul"),        # "⛪ 10. Церковь Св. Павла" ,                    #16
+            InlineKeyboardButton(text=EXCURSION_BUTTONS[17], callback_data="Aasee")     #"🌊 11. Озеро Аазее" ,                          #17
+        ],
+        [ 
+            InlineKeyboardButton(text=EXCURSION_BUTTONS[18], callback_data="Hafen") ,    #"⚓ 12. Порт" ,                                 #18
+            InlineKeyboardButton(text=EXCURSION_BUTTONS[19], callback_data="Ende")       # "🔚 13. Заключение",                            #19
         ],
         [
-         #   KeyboardButton(text=EXCURSION_BUTTONS[16]),     # "10. Церковь Св. Павла"
-         #   KeyboardButton(text=EXCURSION_BUTTONS[20]),     # 20. Далее...
-         #   KeyboardButton(text=EXCURSION_BUTTONS[21]),    # 21. Назад (к кнопкам 1-5)
-         #   KeyboardButton(text=EXCURSION_BUTTONS[9])      # 9. Карта
-        ],
-    ],
-    resize_keyboard=True
+          #  InlineKeyboardButton(text=EXCURSION_BUTTONS[20], callback_data="Weiter2"),        # 20. Далее... (Конпки с 10 по 12)
+            InlineKeyboardButton(text=EXCURSION_BUTTONS[22], callback_data="Zuruck3"),       # "⬅️ Назад...."         (Конпки с 6 по 10)                         #22
+          
+        ]
+    ]
 )
+

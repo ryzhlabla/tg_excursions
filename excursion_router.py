@@ -8,7 +8,7 @@ from buttons import EXCURSION_BUTTONS
 
 router = Router()
 
-# Проба сделать первое меню через инлайн кнопкии 
+# Обработчик инлайн кнопки "Вступление"  
 @router.callback_query(lambda c: c.data == "intro")
 async def handle_intro(callback: CallbackQuery):
     await callback.message.answer_voice(voice=audio_step1, caption="Вступление. Аудиоверсия")
@@ -19,7 +19,7 @@ async def handle_intro(callback: CallbackQuery):
     await callback.answer()
 
 
-# Вызов первой точки маршрута (или из основного меню или при нажатии на "1. Введение")
+# Вызов первой точки маршрута из основного меню keyboards 
 @router.message(lambda msg: msg.text in (EXCURSION_BUTTONS[0], EXCURSION_BUTTONS[1]))
 async def intro(message: Message):
     await message.answer_voice(voice=audio_step1, caption="Вступление. Аудиоверсия")
@@ -29,30 +29,34 @@ async def intro(message: Message):
     await message.answer(text_step1, parse_mode="Markdown", reply_markup=excursion_menu1)
 
 
+# Два обработчика вызова карты google (inline , keyboards)
+
 #Вызов карты экскурсии (Google maps) через основное меню keyboards
-@router.message(lambda msg: msg.text  in (EXCURSION_BUTTONS[9], EXCURSION_BUTTONS[11]))
+@router.message(lambda msg: msg.text  in (EXCURSION_BUTTONS[11]))
 async def menu_map(message: Message):
     await message.answer(
         ' [Google maps](https://www.google.com/maps/d/edit?mid=1LzsQNhwI7wxI9ZatG7Ohu-dyYlFOn-Q&usp=sharing)',
         parse_mode="Markdown", reply_markup=excursion_menu1
     )
 
-# Вызов карты экскурсии (Google maps) через инлайн кнопки
-@router.callback_query(lambda c: c.data == "Plan")
-async def show_map(callback: CallbackQuery):
-    await callback.message.answer(
-        '🗺️ [Google maps](https://www.google.com/maps/d/edit?mid=1LzsQNhwI7wxI9ZatG7Ohu-dyYlFOn-Q&usp=sharing)',
-        parse_mode="Markdown",
-        reply_markup=excursion_menu1
-    )
-    await callback.answer()  # Убирает "часики" на кнопке
+# # Вызов карты экскурсии (Google maps) через инлайн кнопки
+# @router.callback_query(lambda c: c.data == "Plan")
+# async def show_map(callback: CallbackQuery):
+#     await callback.message.answer(
+#         ' [Google maps](https://www.google.com/maps/d/edit?mid=1LzsQNhwI7wxI9ZatG7Ohu-dyYlFOn-Q&usp=sharing)',
+#         parse_mode="Markdown",
+#         reply_markup=excursion_menu1
+#     )
+#     await callback.answer()  # Убирает "часики" на кнопке
 
-#Возврат в основное меню  (кнопка 12)
-@router.message(lambda msg: msg.text  in (EXCURSION_BUTTONS[12]))
-async def menu_back(message: Message):
-    await message.answer( "Вы вернулись в главное меню",
-         reply_markup=main_menu
-    )
+
+# #  Скорее всего не актуально! Проверить!!!
+# #Возврат в основное меню  (кнопка 12)
+# @router.message(lambda msg: msg.text  in (EXCURSION_BUTTONS[12]))
+# async def menu_back(message: Message):
+#     await message.answer( "Вы вернулись в главное меню",
+#          reply_markup=main_menu
+#     )
 
 #Посмотреть точки маршрута  (кнопка 10)
 @router.message(lambda msg: msg.text  in (EXCURSION_BUTTONS[10]))
@@ -61,33 +65,49 @@ async def menu_back(message: Message):
          reply_markup=excursion_menu1
     )
 
+
+####################------------------Обработка кнопок "Вперед"--------------#######################
 #Вперед к кнопкам 6-10  (кнопка 7)
-@router.message(lambda msg: msg.text  in (EXCURSION_BUTTONS[7]))
-async def menu_back(message: Message):
-    await message.answer( "Следующие 5 точек маршрута",
-         reply_markup=excursion_menu2
+
+@router.callback_query(lambda c: c.data == "Weiter")
+async def show_excursion_menu2(callback: CallbackQuery):
+    await callback.message.answer(
+        "Следующие 5 точек маршрута",
+        reply_markup=excursion_menu2
     )
+    #print("Нажата кнопка Weiter")
+    await callback.answer()
 
 #Вперед к кнопкам 11-13  (кнопка 20)
-@router.message(lambda msg: msg.text  in (EXCURSION_BUTTONS[20]))
-async def menu_back(message: Message):
-    await message.answer( "Последние 3 точки маршрута",
-         reply_markup=excursion_menu3
-    )
 
-
-#Назад к кнопкам 1-5  (кнопка 21)
-@router.message(lambda msg: msg.text  in (EXCURSION_BUTTONS[21]))
-async def menu_back(message: Message):
-    await message.answer( "Первые 5 точек маршрута",
-         reply_markup=excursion_menu1
+@router.callback_query(lambda c: c.data == "Weiter2")
+async def show_excursion_menu3(callback: CallbackQuery):
+    await callback.message.answer(
+        "Последние точки маршрута",
+        reply_markup=excursion_menu3
     )
+    await callback.answer()
 
-#Назад к кнопкам 6-10  (кнопка 22)
-@router.message(lambda msg: msg.text  in (EXCURSION_BUTTONS[22]))
-async def menu_back(message: Message):
-    await message.answer( "Точки 6-10 маршрута",
-         reply_markup=excursion_menu2
+####################------------------Обработка кнопок "Назад"--------------#######################
+# #Назад к кнопкам 1-5  (кнопка 21)
+
+@router.callback_query(lambda c: c.data == "Zuruck2")
+async def back_excursion_menu1(callback: CallbackQuery):
+    await callback.message.answer(
+        "Предыдушие 5 точек маршрута",
+        reply_markup=excursion_menu1
     )
+    await callback.answer()
+
+# #Назад к кнопкам 10-13  (кнопка 21)
+
+@router.callback_query(lambda c: c.data == "Zuruck3")
+async def back_excursion_menu2(callback: CallbackQuery):
+    await callback.message.answer(
+        "Предыдушие 5 точек маршрута",
+        reply_markup=excursion_menu2
+    )
+    await callback.answer()
+
 
 
