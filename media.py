@@ -1,4 +1,6 @@
 from aiogram.types import FSInputFile
+# ---------- Точка 0: Приветственный текст ----------
+from app.step1_intro.step_start import txt1 as text_step0
 
 # ---------- Точка 1: Вступление ----------
 from app.step1_intro.step1 import txt1 as text_step1
